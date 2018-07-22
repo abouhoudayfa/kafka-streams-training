@@ -12,20 +12,20 @@ import java.util.Arrays;
 import java.util.Properties;
 
 /**
- * Created by hadoop on 7/10/18.
+ * Created by abouhoudayfa on 7/10/18.
  */
 public class StreamsStarterApp {
     public static void main(String[] args) {
         Properties config = new Properties();
         config.put(StreamsConfig.APPLICATION_ID_CONFIG, "word-count-application");
-        config.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9093");
+        config.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         config.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         config.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 
         KStreamBuilder builder = new KStreamBuilder();
-        // 1 - stream from Kafka
 
+        // 1 - stream from Kafka
         KStream<String, String> textLines = builder.stream("word-count-topic-input");
         KTable<String, Long> wordCounts = textLines
                 // 2 - map values to lowercase
